@@ -1257,6 +1257,15 @@ footer a {
     :root {
         --luft: 5rem;
         --header: 80px;
+        /* Sidmarginal till vänster och höger på mindre skärmar */
+        --sidmarg: 3rem;
+    }
+
+    /* Heron blir lika hög som rutan (inte hela skärmen), så innehållet under syns direkt */
+    #hero {
+        min-height: auto;
+        padding-block: calc(var(--header) + 3rem) 3rem;
+        box-sizing: border-box;
     }
 
     body {
@@ -1270,7 +1279,7 @@ footer a {
 
     #globalnav {
         max-width: 700px;
-        padding: 0 2rem;
+        padding: 0 var(--sidmarg);
         box-sizing: border-box;
     }
 
@@ -1291,9 +1300,9 @@ footer a {
     #herotext {
         align-self: center;
         margin-right: 0;
-        width: calc(100% - 4rem);
-        max-width: calc(700px - 4rem);
-        margin-top: 30vh;
+        width: calc(100% - 2 * var(--sidmarg));
+        max-width: calc(700px - 2 * var(--sidmarg));
+        margin-top: 0;
         --hero-py: 32px;
         --hero-px: 32px;
     }
@@ -1318,7 +1327,7 @@ footer a {
     #kontakt {
         width: 100%;
         max-width: 700px;
-        padding-inline: 2rem;
+        padding-inline: var(--sidmarg);
         box-sizing: border-box;
     }
 
@@ -1394,6 +1403,11 @@ footer a {
     :root {
         --luft: 4rem;
         --header: 70px;
+        --sidmarg: 2rem;
+    }
+
+    #hero {
+        padding-block: calc(var(--header) + 2rem) 2rem;
     }
 
     /* Typografi */
@@ -1416,7 +1430,7 @@ footer a {
     }
 
     #globalnav {
-        padding: 0 1.25rem;
+        padding: 0 var(--sidmarg);
     }
 
     header img {
@@ -1560,7 +1574,7 @@ footer a {
 
     /* Hero */
     #herotext {
-        width: calc(100% - 2.5rem);
+        width: calc(100% - 2 * var(--sidmarg));
         --hero-py: 30px;
         --hero-px: 24px;
     }
@@ -1588,7 +1602,7 @@ footer a {
     #m1,
     #m2,
     #kontakt {
-        padding-inline: 1.25rem;
+        padding-inline: var(--sidmarg);
     }
 
     img.ikon {
@@ -1693,7 +1707,7 @@ footer a {
 @media (max-width: 950px) {
     #footerinner,
     #copyright {
-        padding-inline: 2rem;
+        padding-inline: var(--sidmarg);
         box-sizing: border-box;
     }
 
@@ -1701,7 +1715,7 @@ footer a {
     #copyright {
         border-top: none;
         background-image: linear-gradient(var(--secondary-2), var(--secondary-2));
-        background-size: calc(100% - 4rem) 1px;
+        background-size: calc(100% - 2 * var(--sidmarg)) 1px;
         background-position: top center;
         background-repeat: no-repeat;
     }
@@ -1718,7 +1732,7 @@ footer a {
 @media (max-width: 600px) {
     #footerinner,
     #copyright {
-        padding-inline: 1.25rem;
+        padding-inline: var(--sidmarg);
     }
 
     #footerinner {
@@ -1727,7 +1741,7 @@ footer a {
     }
 
     #copyright {
-        background-size: calc(100% - 2.5rem) 1px;
+        background-size: calc(100% - 2 * var(--sidmarg)) 1px;
     }
 
     footer p,
