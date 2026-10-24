@@ -891,12 +891,15 @@ footer a {
     padding-inline: 3.5rem;
     text-align: center;
     box-sizing: border-box;
+    white-space: nowrap; /* texten stannar alltid på en rad */
 }
 
 @media (max-width: 420px) {
     .knapp-bred {
         min-width: 0;
         width: 100%;
+        padding-inline: 1rem;
+        font-size: 1rem;
     }
 }
 
@@ -1412,7 +1415,7 @@ footer a {
 
     /* Typografi */
     h1 {
-        font-size: 1.7rem;
+        font-size: 1.45rem;
     }
 
     h2 {
