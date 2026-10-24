@@ -1,0 +1,1744 @@
+@charset "UTF-8";
+
+/* Färger – samma som färgstilarna i Figma. Ändra här så ändras hela sidan.
+   Använd dem så här: color: var(--primary); */
+:root {
+    --primary: #0A2E31;      /* primary color – mörkgrön */
+    --secondary: #E5F2F3;    /* secondary color – ljus blågrå */
+    --secondary-2: #557077;  /* secondary color 2 – gråblå */
+    --secondary-3: #EAE1CF;  /* secondary color 3 – beige */
+    --accent: #89442A;       /* accent color – rödbrun */
+    --neutral: #FFFEF1;      /* neutral – krämvit */
+}
+
+:root {
+    /* Avstånd mellan sektioner och navbarens höjd – ändras i media queries */
+    --luft: 8rem;
+    --header: 100px;
+    /* Menyknapparnas bredd och marginal – hero-rutan följer dessa */
+    --meny-knapp: 213.3px;
+    --meny-marg: 10px;
+}
+
+html {
+    background-color: var(--neutral);
+    font-size: 16px;
+    scroll-behavior: smooth;
+}
+
+main {
+    margin: 0 auto;
+    min-height: 100vh;
+    display: block;
+}
+
+body {
+    margin: 0;
+}
+
+#hero {
+    background-image: url(img/ap-omslag.webp);
+    min-width: 100vw;
+    min-height: 50vw;
+    background-position: bottom;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    /* Innehållets bredd – används för att linjera hero-rutan med högerkanten */
+    --innehall: 1440px;
+}
+
+/* Hero-rutan ligger till höger, linjerad med innehållets högerkant */
+#herotext {
+    /* Lika bred som menyn: 3 knappar + mellanrummen mellan dem */
+    width: calc(3 * var(--meny-knapp) + 4 * var(--meny-marg));
+    align-self: flex-end;
+    margin-right: calc((100% - var(--innehall)) / 2);
+    margin-top: 28vh;
+    --hero-py: 56px;
+    --hero-px: 48px;
+    padding: var(--hero-py) var(--hero-px);
+    display: flex;
+    flex-direction: column;
+    box-sizing: border-box;
+    background-color: #fffef1be;
+
+}
+
+#murokakel {
+    color: var(--primary);
+    font-family: "STIX Two Text", serif;
+    font-weight: 400;
+    font-style: normal;
+    font-size: 3.4rem;
+    letter-spacing: 0.2rem;
+    white-space: nowrap;
+}
+
+/* Display-text: stor text som inte är en rubrik (används i heron) */
+.display {
+    margin: 0.67em 0;
+    line-height: 1.2;
+}
+
+#slogan {
+    color: var(--primary);
+    font-size: 1.5rem;
+}
+
+.tilltoppen {
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+h1 {
+    font-family: "Nunito Sans", sans-serif;
+    font-optical-sizing: auto;
+    font-weight: 600;
+    font-style: normal;
+    font-variation-settings:
+        "wdth" 100,
+        "YTLC" 500;
+    color: var(--accent);
+    font-size: 2.8rem;
+}
+
+h2 {
+    font-family: "Nunito Sans", sans-serif;
+    font-optical-sizing: auto;
+    font-weight: 500;
+    font-style: normal;
+    font-variation-settings:
+        "wdth" 100,
+        "YTLC" 500;
+    color: var(--secondary-2);
+    font-size: 1.75rem;
+}
+
+p {
+    font-family: "Newsreader", serif;
+    font-weight: 400;
+    font-style: normal;
+    color: var(--primary);
+    font-size: 1.25rem;
+    line-height: 1.6;
+    letter-spacing: 0.01rem;
+}
+
+header {
+    position: fixed;
+    z-index: 10;
+    width: 100%;
+    height: 100px;
+    display: flex;
+    justify-content: center;
+}
+
+/* Halvtransparent bakgrund med blur. Ligger i ett pseudo-element så att
+   hamburgarmenyns sidopanel och overlay fortfarande täcker hela skärmen */
+header::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    background-color: rgba(10, 46, 49, 0.945);
+    -webkit-backdrop-filter: blur(0px);
+    backdrop-filter: blur(20px);
+}
+
+#globalnav {
+    max-width: 1440px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+}
+
+header img {
+    max-width: 70px;
+}
+
+nav.start {
+    display: flex;
+    justify-content: flex-start;
+    white-space: nowrap;
+}
+
+/* Loggan linjerar med innehållets vänsterkant */
+nav.start a {
+    width: auto;
+    height: auto;
+    margin: 0;
+    padding: 0;
+    display: block;
+}
+
+/* Sista länken linjerar med innehållets högerkant */
+nav.navigering li:last-child a {
+    margin-right: 0;
+}
+
+nav.navigering {
+    display: flex;
+    justify-content: flex-end;
+}
+
+/* Hamburgarmeny – dold på stora skärmar */
+.menyknapp,
+.hamburgare,
+.menyoverlay {
+    display: none;
+}
+
+nav ul {
+    padding: 0;
+    display: flex;
+    align-items: center;
+}
+
+nav li {
+    list-style: none;
+    display: flex;
+}
+
+a {
+    text-decoration: none;
+}
+
+nav a {
+    text-decoration: none;
+    color: var(--neutral);
+    width: var(--meny-knapp);
+    height: 56px;
+    border-radius: 3px;
+    align-content: center;
+    text-align: center;
+    margin: 0 var(--meny-marg);
+    font-family: "Newsreader", serif;
+    font-optical-sizing: auto;
+    font-weight: 400;
+    font-style: normal;
+    font-size: 1.5rem;
+    transition: transform 0.2s ease, background-color 0.2s ease, color 0.2s ease;
+}
+
+/* Menyknappar: tunn ljus ram som standard */
+nav.navigering a {
+    background-color:var(--secondary-2);
+    border: 1px solid #10272e;
+    box-sizing: border-box;
+}
+
+/* Sidan man står på */
+nav a.thispage {
+    color: var(--neutral);
+     border: 2px solid #522111;
+    background-color: var(--accent);
+}
+
+/* Hover bara på enheter med muspekare, så att effekten inte fastnar på mobilen */
+@media (hover: hover) {
+    /* Hover: lite ljusare bakgrund och lyfts lite, som CTA-knappen (inte sidan man står på) */
+    /* Alla menyknappar och loggan lyfts lite vid hover, som CTA-knappen */
+    nav a:hover {
+        transform: translateY(-2px);
+    }
+
+    nav.navigering a:not(.thispage):hover {
+        background-color: #6f898f;
+    }
+}
+
+img.ikon {
+    max-width: 70px;
+    height: 70px;
+    width: auto;
+    margin: 30px;
+}
+
+#start {
+    display: grid;
+    grid-template-rows: auto auto auto;
+    grid-template-areas: "s1" "s2background" "s3";
+}
+
+#s1,
+#s2background {
+    scroll-snap-align: start;
+    scroll-margin-top: 200px;
+    box-sizing: border-box;
+}
+
+#s2background {
+    background-color: var(--secondary);
+    grid-area: s2background;
+    align-items: center;
+    padding: 0;
+}
+
+#s1 {
+    grid-area: s1;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 4rem;
+    max-width: 1440px;
+    grid-template-areas: "innehåll fördelar";
+    align-items: center;
+    box-sizing: border-box;
+}
+
+#start .innehåll {
+    grid-area: innehåll;
+}
+
+#fördelar {
+    grid-area: fördelar;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 2rem;
+    padding-top: 64.4px;
+}
+
+#fördelar div {
+    background-color: var(--secondary-3);
+    border-radius: 4px;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 230px;
+}
+
+#fördelar p {
+    font-weight: 500;
+    color: var(--accent);
+}
+
+#s2 {
+    margin: 0 auto;
+    max-width: 1440px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-areas: "s2a s2b";
+    gap: 4rem;
+    align-items: center;
+    box-sizing: border-box;
+}
+
+#s2a {
+    grid-area: s2a;
+}
+
+#s2b {
+    grid-area: s2b;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-areas: "bkr kredit";
+    justify-content: right;
+    padding-top: 96.12px;
+}
+
+#bkr {
+    grid-area: bkr;
+    justify-self: right;
+}
+
+#bkrbild {
+    max-width: 280px;
+}
+
+#kredit {
+    width: 420px;
+    grid-area: kredit;
+}
+
+
+#s3 {
+    grid-area: s3;
+    margin-top: 0;
+    margin: 0 auto;
+    max-width: 1440px;
+    display: grid;
+    grid-template-rows: auto;
+    grid-template-areas: "s3content";
+    scroll-snap-align: start;
+    scroll-margin-top: 200px;
+    box-sizing: border-box;
+
+}
+
+#s3content {
+    grid-area: s3content;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-areas: "s3a s3b";
+    gap: 4rem;
+    align-items: center;
+    align-content: center;
+    box-sizing: border-box;
+}
+
+#s3a {
+    grid-area: s3a;
+}
+
+#s3b {
+    grid-area: s3b;
+    margin-top: 26.56px;
+}
+
+#tjänster {
+
+    display: grid;
+    grid-template-rows: auto auto auto;
+    grid-template-areas: "t1" "t2background" "t3";
+    padding: 0;
+}
+
+#t1,
+#t2background {
+    scroll-snap-align: start;
+    scroll-margin-top: 200px;
+    box-sizing: border-box;
+}
+
+#t1 {
+    grid-area: t1;
+    margin: 0 auto;
+    max-width: 1440px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-areas:
+        "t1a t1b";
+    gap: 4rem;
+    align-items: center;
+}
+
+#t1a {
+    grid-area: t1a;
+}
+
+#t1b {
+    background-color: var(--secondary-2);
+    grid-area: t1b;
+    border-radius: 2px;
+    padding: 30px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    min-height: 340px;
+    margin-top: 56.57px;
+}
+
+#t1b p {
+    color: var(--neutral);
+}
+
+#t2background {
+    grid-area: t2background;
+    background-color: var(--secondary-2);
+    align-items: center;
+}
+
+#t2 {
+    margin: 0 auto;
+    max-width: 1440px;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 4rem;
+    grid-template-areas: "t2a t2b" "t2c t2d";
+    box-sizing: border-box;
+}
+
+/* Gemensam stil för de ljusa textrutorna på Tjänster och Materialval */
+.kort {
+    background-color: var(--secondary);
+    padding: 20px 40px;
+    border-radius: 2px;
+}
+
+#t2a {
+    grid-area: t2a;
+}
+
+#t2b {
+    grid-area: t2b;
+}
+
+#t2c {
+    grid-area: t2c;
+}
+
+#t2d {
+    grid-area: t2d;
+}
+
+#t3 {
+    grid-area: t3;
+    margin: 0 auto;
+    max-width: 1440px;
+    display: grid;
+    grid-template-rows: auto;
+    grid-template-areas: "t3content";
+    scroll-snap-align: start;
+    scroll-margin-top: 200px;
+    box-sizing: border-box;
+}
+
+#t3content {
+    grid-area: t3content;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-areas: "t3a t3bild";
+    gap: 4rem;
+    align-items: center;
+    align-content: center;
+    box-sizing: border-box;
+}
+
+/* Textkolumnen med knapp längst ner på Tjänster */
+#t3a {
+    grid-area: t3a;
+}
+
+#t3bild {
+    grid-area: t3bild;
+    width: 100%;
+    height: auto;
+    border-radius: 4px;
+}
+
+#t3a .knapp {
+    margin-top: 1rem;
+}
+
+.ikoninfo {
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+#materialval {
+    display: grid;
+    grid-template-rows: auto auto auto;
+    grid-template-areas: "m1" "m2";
+    padding: 0;
+}
+
+#m1 {
+    grid-area: m1;
+    margin: 0 auto;
+    max-width: 1440px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 4rem;
+    grid-template-areas: "innehåll materialbild";
+    align-items: center;
+    box-sizing: border-box;
+    scroll-snap-align: start;
+    scroll-margin-top: 200px;
+}
+
+#materialval .innehåll {
+    grid-area: innehåll;
+}
+
+#materialbild {
+    grid-area: materialbild;
+    padding-top: 64.45px;
+}
+
+#m2background {
+    background-color: var(--secondary-2);
+    scroll-snap-align: start;
+    scroll-margin-top: 200px;
+    align-items: center;
+    box-sizing: border-box;
+}
+
+#m2 {
+    grid-area: m2;
+    margin: 0 auto;
+    max-width: 1440px;
+    display: grid;
+    grid-template-rows: auto;
+    grid-template-areas: "m2content";
+    align-items: center;
+}
+
+#m2content {
+    grid-area: m2content;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: auto auto;
+    grid-template-areas: "m2a m2c" "m2b m2c";
+    gap: 4rem;
+    align-content: center;
+    box-sizing: border-box;
+}
+
+#m2a {
+    grid-area: m2a;
+}
+
+#m2b {
+    grid-area: m2b;
+}
+
+#m2c {
+    grid-area: m2c;
+}
+
+#kontakt {
+    display: grid;
+    margin: 0 auto;
+    max-width: 1440px;
+    display: grid;
+    grid-template-rows: auto;
+    grid-template-areas: "kontaktcontent";
+    scroll-snap-align: start;
+    scroll-margin-top: 200px;
+    box-sizing: border-box;
+}
+
+#kontaktcontent {
+    grid-area: kontaktcontent;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-areas: "innehåll kontaktuppgifter";
+    gap: 4rem;
+    align-items: center;
+    align-content: center;
+    box-sizing: border-box;
+}
+
+#kontakt .innehåll {
+    grid-area: innehåll;
+}
+
+#kontaktuppgifter {
+    grid-area: kontaktuppgifter;
+}
+
+.kontaktkort {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 2rem;
+    padding-top: 64.4px;
+}
+
+.kontaktkort div {
+    background-color: var(--secondary-3);
+    border-radius: 4px;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 260px;
+
+}
+
+/* Hela kortet är klickbart */
+.kontaktkort div {
+    position: relative;
+    overflow: hidden;
+}
+
+.kontaktkort a {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    flex: 1;
+    align-self: stretch;
+}
+
+/* Mörk overlay över kortet */
+.kontaktkort a::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background-color:#442d233f;
+    opacity: 0;
+    transition: opacity 0.25s ease;
+    pointer-events: none;
+}
+
+/* Knapp i mitten med texten från data-tips, t.ex. "Ring numret" */
+.kontaktkort a::after {
+    content: attr(data-tips);
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    padding: 0.75rem 1.5rem;
+    border-radius: 10px;
+    background-color: var(--neutral);
+    color: var(--primary);
+    font-family: "Nunito Sans", sans-serif;
+    font-weight: 600;
+    font-size: 1.15rem;
+    white-space: nowrap;
+    box-shadow: 0 6px 18px rgba(10, 46, 49, 0.25);
+    pointer-events: none;
+    opacity: 0;
+    transform: translate(-50%, -50%) scale(0.9);
+    transition: opacity 0.25s ease, transform 0.25s ease;
+}
+
+/* Visas vid hover (dator), tangentbordsfokus och första trycket på mobil (.aktiv) */
+.kontaktkort a:focus-visible::before,
+.kontaktkort a.aktiv::before {
+    opacity: 1;
+}
+
+.kontaktkort a:focus-visible::after,
+.kontaktkort a.aktiv::after {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1);
+}
+
+@media (hover: hover) {
+    .kontaktkort a:hover::before {
+        opacity: 1;
+    }
+
+    .kontaktkort a:hover::after {
+        opacity: 1;
+        transform: translate(-50%, -50%) scale(1);
+    }
+}
+
+.kontaktkort p {
+    font-weight: 500;
+    color: var(--accent);
+}
+
+/* Footer */
+footer {
+    background-color: var(--primary);
+    color: var(--neutral);
+}
+
+#footerinner {
+    margin: 0 auto;
+    max-width: 1440px;
+    display: grid;
+    grid-template-columns: 2fr 1fr 1fr;
+    gap: 4rem;
+    padding-block: 4rem 2rem;
+}
+
+.footerlogo {
+    max-width: 80px;
+}
+
+footer h2 {
+    color: var(--neutral);
+    font-size: 1.3rem;
+    margin-top: 0;
+}
+
+footer p,
+footer li {
+    font-family: "Newsreader", serif;
+    color: var(--neutral);
+    font-size: 1.15rem;
+    line-height: 1.6;
+}
+
+footer ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+footer a {
+    color: var(--neutral);
+    display: inline-block;
+    transition: transform 0.2s ease, color 0.2s ease;
+}
+
+@media (hover: hover) {
+    footer a:hover {
+        color: #E4F2FF;
+        transform: translateX(4px);
+    }
+}
+
+#copyright {
+    margin: 0 auto;
+    max-width: 1440px;
+    padding-block: 1.5rem;
+    border-top: 1px solid var(--secondary-2);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 1rem;
+}
+
+#copyright p {
+    margin: 0;
+    font-size: 0.95rem;
+    color: var(--secondary);
+}
+
+/* "Till toppen" – rund knapp som ligger fast i nedre högra hörnet */
+#tilltoppen {
+    position: fixed;
+    right: 1.5rem;
+    bottom: 1.5rem;
+    z-index: 5;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 52px;
+    height: 52px;
+    border-radius: 50%;
+    /* Ljus ram så att knappen syns även mot den mörka footern */
+    border: 1.5px solid var(--secondary);
+    box-sizing: border-box;
+    background-color: rgba(10, 46, 49, 0.85);
+    -webkit-backdrop-filter: blur(12px);
+    backdrop-filter: blur(12px);
+    color: var(--neutral);
+    font-family: "Nunito Sans", sans-serif;
+    font-size: 1.5rem;
+    box-shadow: 0 4px 14px rgba(10, 46, 49, 0.25);
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(10px);
+    transition: opacity 0.3s ease, visibility 0.3s, transform 0.3s ease;
+}
+
+#tilltoppen.synlig {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+}
+
+@media (hover: hover) {
+    #tilltoppen.synlig:hover {
+        transform: translateY(-3px);
+    }
+}
+
+@media (max-width: 600px) {
+    #tilltoppen {
+        right: 1rem;
+        bottom: 1rem;
+        width: 44px;
+        height: 44px;
+        font-size: 1.25rem;
+    }
+}
+
+/* Enhetliga avstånd: sektionerna blir så höga som innehållet */
+#t1,
+#m1,
+#kontaktcontent {
+    padding-block: calc(var(--header) + var(--luft)) var(--luft);
+}
+
+#s1,
+#s2,
+#s3content,
+#t2,
+#t3content,
+#m2content {
+    padding-block: var(--luft);
+}
+
+/* Knappar i heron */
+/* Knappen centrerad under slogan */
+#heroknappar {
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+    margin-top: 2rem;
+}
+
+.knapp {
+    display: inline-block;
+    padding: 0.8rem 1.8rem;
+    border: 2px solid var(--accent);
+    border-radius: 4px;
+    color: var(--accent);
+    /* Halvtransparent med blur bakom */
+    background-color: rgba(255, 254, 241, 0.705);
+    -webkit-backdrop-filter: blur(12px);
+    backdrop-filter: blur(12px);
+    font-family: "Nunito Sans", sans-serif;
+    font-weight: 600;
+    font-size: 1.1rem;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+/* Avlång variant av knappen (används i heron) */
+.knapp-bred {
+    min-width: 300px;
+    padding-inline: 3.5rem;
+    text-align: center;
+    box-sizing: border-box;
+}
+
+@media (max-width: 420px) {
+    .knapp-bred {
+        min-width: 0;
+        width: 100%;
+    }
+}
+
+@media (hover: hover) {
+    .knapp:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 6px 16px rgba(10, 46, 49, 0.2);
+    }
+}
+
+@media (max-width: 1600px) {
+    h1 {
+        font-size: 2rem;
+    }
+
+    h2 {
+        font-size: 1.5rem;
+    }
+
+    p {
+        font-size: 1.15rem;
+        line-height: 1.5;
+    }
+
+    #hero {
+        min-height: 100vh;
+        --innehall: 1040px;
+    }
+
+    #herotext {
+        margin-top: 35vh;
+        --hero-py: 48px;
+        --hero-px: 40px;
+    }
+
+    #murokakel {
+        font-size: 2.4rem;
+        letter-spacing: 0.15rem;
+    }
+
+    #slogan {
+        font-size: 1.3rem;
+    }
+
+    #globalnav {
+        max-width: 1040px;
+    }
+
+    nav a {
+        font-size: 1.15rem;
+    }
+
+    #s1 {
+        max-width: 1040px;
+    }
+
+    #fördelar {
+        gap: 1rem;
+    }
+
+    #fördelar div {
+        min-height: 200px;
+    }
+
+    #s2 {
+        max-width: 1040px;
+    }
+
+    #s2b {
+        padding-top: 77.496px;
+    }
+
+    #bkrbild {
+        max-width: 180px;
+    }
+
+    #kredit {
+        width: 308px;
+        grid-area: kredit;
+    }
+
+    #s3 {
+        max-width: 1040px;
+    }
+
+    #s3b {
+        margin-top: 26.56px;
+        max-width: 488px;
+    }
+
+    #t1 {
+        max-width: 1040px;
+    }
+
+    #t1b {
+        padding: 30px;
+        min-height: 265px;
+        margin-top: 56.57px;
+    }
+
+    #t2 {
+        max-width: 1040px;
+    }
+
+    #t3 {
+        max-width: 1040px;
+    }
+
+    #m1 {
+        max-width: 1040px;
+    }
+
+    #materialbild {
+        padding-top: 100px;
+        max-width: 488px;
+    }
+
+    #m2 {
+        max-width: 1040px;
+    }
+
+    #kontakt {
+        max-width: 1040px;
+    }
+
+    .kontaktkort p {
+        font-weight: 500;
+        color: var(--accent);
+    }
+
+    .kontaktkort div {
+        min-height: 205px;
+
+    }
+
+}
+
+@media (max-width: 1200px) {
+
+    #bkrbild {
+        max-width: 140px;
+    }
+
+    #kredit {
+        width: 230px;
+    }
+
+    :root {
+        --luft: 6rem;
+        --meny-knapp: 155px;
+        --meny-marg: 8px;
+    }
+
+    #globalnav {
+        max-width: 700px;
+    }
+
+    header img {
+        max-width: 60px;
+    }
+
+    nav a {
+        height: 50px;
+        border-radius: 2px;
+        font-size: 1.15rem;
+    }
+
+    #hero {
+        --innehall: 700px;
+    }
+
+    #herotext {
+        margin-top: 35vh;
+        --hero-py: 40px;
+        --hero-px: 32px;
+    }
+
+    #murokakel {
+        font-size: 2.1rem;
+        letter-spacing: 0.1rem;
+    }
+
+    #slogan {
+        font-size: 1.15rem;
+    }
+
+    #s1 {
+        grid-template-rows: 1fr auto;
+        gap: 2rem;
+        max-width: 700px;
+        grid-template-columns: 1fr;
+        grid-template-areas: "innehåll" "fördelar";
+
+    }
+
+    #fördelar {
+        grid-template-columns: 1fr 1fr 1fr 1fr;
+        gap: 1rem;
+        padding-top: 0px;
+    }
+
+    img.ikon {
+        max-width: 50px;
+        height: 50px;
+        margin: 10px;
+    }
+
+    #fördelar p {
+        font-size: 1rem;
+    }
+
+    #fördelar div {
+        border-radius: 2px;
+        min-height: 150px;
+    }
+
+    #s2 {
+        max-width: 700px;
+        grid-template-columns: 3fr 1fr;
+        grid-template-areas: "s2a s2b";
+        gap: 4rem;
+    }
+
+    #s2b {
+        grid-area: s2b;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 4rem;
+        padding-top: 60px;
+    }
+
+    #s3 {
+        max-width: 700px;
+
+    }
+
+    #s3content {
+        grid-template-columns: auto auto;
+
+    }
+
+    #s3b {
+        margin-top: 30;
+        object-fit: cover;
+        width: 280px;
+        height: 340px;
+    }
+
+    #t1 {
+        max-width: 700px;
+        grid-template-columns: 1fr;
+        grid-template-rows: auto 1fr;
+        grid-template-areas:
+            "t1a" "t1b";
+        gap: 2rem;
+    }
+
+    #t1b {
+        margin-top: 0;
+        padding: 40px;
+        min-height: 200px;
+        column-gap: 2rem;
+    }
+
+    #t2 {
+    max-width: 700px;
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 4rem;
+    grid-template-areas: "t2a" "t2b" "t2c" "t2d";
+}
+
+#t3 {
+    max-width: 700px;
+}
+
+#t3content {
+    grid-template-columns: 1fr;
+    grid-template-areas: "t3a" "t3bild";
+}
+
+#m1 {
+    max-width: 700px;
+    grid-template-columns: 1fr;
+    gap: 2rem;
+    grid-template-areas: "innehåll" "materialbild";
+}
+
+#materialbild {
+    padding-top: 0px;
+    min-width: 100%;
+}
+
+#m2 {
+    max-width: 700px;
+}
+
+#m2content {
+    grid-template-columns: 1fr;
+    grid-template-rows: auto auto auto;
+    grid-template-areas: "m2a" "m2b" "m2c";
+}
+
+#kontakt {
+    max-width: 700px;
+}
+
+#kontaktcontent {
+    grid-template-columns: 1fr;
+    grid-template-areas: "innehåll" "kontaktuppgifter";
+    gap: 2rem;
+}
+
+.kontaktkort {
+    padding-top: 0px;
+}
+
+.kontaktkort div {
+    background-color: var(--secondary-3);
+    border-radius: 4px;
+    min-height: 230px;
+
+}
+
+}
+
+@media (max-width: 950px) {
+
+    /* Sigillen under texten: vänsterställda och med samma synliga höjd.
+       UC-sigillets bildfil har mycket tom yta, så länken beskär bort den. */
+    #s2b {
+        --sigill: 100px;
+    }
+
+    .uc-lank {
+        display: block;
+        width: calc(var(--sigill) * 0.8615);
+        height: var(--sigill);
+        overflow: hidden;
+    }
+
+    #kredit {
+        display: block;
+        width: auto;
+        height: calc(var(--sigill) * 1.385);
+        margin-left: calc(var(--sigill) * -0.385);
+        margin-top: calc(var(--sigill) * -0.01);
+    }
+
+    #bkrbild {
+        display: block;
+        width: auto;
+        max-width: none;
+        height: var(--sigill);
+    }
+
+    :root {
+        --luft: 5rem;
+        --header: 80px;
+    }
+
+    body {
+        overflow-x: hidden;
+    }
+
+    /* Header */
+    header {
+        height: 80px;
+    }
+
+    #globalnav {
+        max-width: 700px;
+        padding: 0 2rem;
+        box-sizing: border-box;
+    }
+
+    header img {
+        max-width: 52px;
+    }
+
+    nav a {
+        width: auto;
+        height: 46px;
+        padding: 0 1.2rem;
+        margin: 0 4px;
+        font-size: 1.05rem;
+    }
+
+    /* Hero */
+    /* Mindre skärmar: rutan centreras och blir lika bred som innehållet */
+    #herotext {
+        align-self: center;
+        margin-right: 0;
+        width: calc(100% - 4rem);
+        max-width: calc(700px - 4rem);
+        margin-top: 30vh;
+        --hero-py: 32px;
+        --hero-px: 32px;
+    }
+
+    #murokakel {
+        font-size: 2.2rem;
+    }
+
+    #slogan {
+        font-size: 1.2rem;
+    }
+
+    /* Gemensamma behållare: luft på sidorna */
+    #s1,
+    #s2,
+    #s3,
+    #t1,
+    #t2,
+    #t3,
+    #m1,
+    #m2,
+    #kontakt {
+        width: 100%;
+        max-width: 700px;
+        padding-inline: 2rem;
+        box-sizing: border-box;
+    }
+
+    /* Startsidan */
+    #fördelar {
+        height: auto;
+        max-height: none;
+    }
+
+    #s2 {
+        grid-template-columns: 1fr;
+        grid-template-areas: "s2a" "s2b";
+        gap: 2rem;
+    }
+
+    #s2b {
+        flex-direction: row;
+        justify-content: flex-start;
+        gap: 3rem;
+        padding-top: 0;
+    }
+
+    #s3content {
+        min-height: auto;
+        grid-template-columns: 1fr;
+        grid-template-areas: "s3a" "s3b";
+        gap: 2rem;
+    }
+
+    /* Bilder under texten fyller hela innehållsbredden */
+    #s3b {
+        justify-self: stretch;
+        margin-top: 0;
+        width: 100%;
+        max-width: none;
+        height: auto;
+    }
+
+    /* Tjänster */
+    #t1b {
+        height: auto;
+    }
+
+    #t2 {
+        gap: 2rem;
+    }
+
+    /* Materialval */
+    #materialbild {
+        min-width: 0;
+        width: 100%;
+        max-width: none;
+        height: auto;
+    }
+
+    #m2content {
+        min-height: auto;
+        gap: 2rem;
+    }
+
+    /* Kontakt */
+    #kontaktcontent {
+        min-height: auto;
+    }
+
+    .kontaktkort div {
+        min-height: 200px;
+    }
+}
+
+@media (max-width: 600px) {
+
+    :root {
+        --luft: 4rem;
+        --header: 70px;
+    }
+
+    /* Typografi */
+    h1 {
+        font-size: 1.7rem;
+    }
+
+    h2 {
+        font-size: 1.35rem;
+    }
+
+    p {
+        font-size: 1.1rem;
+        line-height: 1.6;
+    }
+
+    /* Header med hamburgarmeny */
+    header {
+        height: 70px;
+    }
+
+    #globalnav {
+        padding: 0 1.25rem;
+    }
+
+    header img {
+        max-width: 46px;
+    }
+
+    /* Själva kryssrutan döljs men går fortfarande att nå med tangentbordet */
+    .menyknapp {
+        display: block;
+        position: absolute;
+        opacity: 0;
+        width: 1px;
+        height: 1px;
+        pointer-events: none;
+    }
+
+    .hamburgare {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        gap: 7px;
+        width: 48px;
+        height: 48px;
+        padding: 0 10px;
+        box-sizing: border-box;
+        cursor: pointer;
+        border-radius: 2px;
+    }
+
+    .hamburgare span {
+        display: block;
+        height: 3px;
+        width: 100%;
+        background-color: var(--neutral);
+        border-radius: 2px;
+        transition: transform 0.25s ease, opacity 0.2s ease;
+    }
+
+    .menyknapp:focus-visible + .hamburgare {
+        outline: 2px solid #E4F2FF;
+        outline-offset: 2px;
+    }
+
+    /* Hamburgaren blir ett kryss när menyn är öppen */
+    .menyknapp:checked + .hamburgare span:nth-child(1) {
+        transform: translateY(10px) rotate(45deg);
+    }
+
+    .menyknapp:checked + .hamburgare span:nth-child(2) {
+        opacity: 0;
+    }
+
+    .menyknapp:checked + .hamburgare span:nth-child(3) {
+        transform: translateY(-10px) rotate(-45deg);
+    }
+
+    /* Hamburgaren ligger ovanför sidopanelen och krysset blir mörkt */
+    .hamburgare {
+        position: relative;
+        z-index: 2;
+    }
+
+    .menyknapp:checked + .hamburgare span {
+        background-color: var(--neutral);
+    }
+
+    /* Sidopanel som glider in från höger */
+    nav.navigering {
+        display: block;
+        position: fixed;
+        top: 0;
+        right: 0;
+        z-index: 1;
+        width: 72%;
+        height: 100vh;
+        height: 100dvh;
+        background-color: var(--primary);
+        padding-top: 110px;
+        box-sizing: border-box;
+        box-shadow: -4px 0 16px rgba(10, 46, 49, 0.25);
+        transform: translateX(100%);
+        visibility: hidden;
+        transition: transform 0.3s ease, visibility 0.3s;
+    }
+
+    .menyknapp:checked ~ nav.navigering {
+        transform: translateX(0);
+        visibility: visible;
+    }
+
+    nav.navigering ul {
+        margin: 0;
+        flex-direction: column;
+        gap: 20px;
+    }
+
+    nav.navigering li {
+        width: 100%;
+        justify-content: center;
+    }
+
+    nav.navigering a {
+        width: 75%;
+        height: 44px;
+        margin: 0;
+        padding: 0;
+        border-radius: 4px;
+        font-size: 1.15rem;
+        font-weight: 600;
+        color: var(--neutral);
+    }
+
+    @media (hover: hover) {
+        nav.navigering a:not(.thispage):hover {
+            background-color: #263D43;
+        }
+    }
+
+    nav.navigering a.thispage {
+        background-color: var(--accent);
+        color: var(--neutral);
+    }
+
+    /* Transparent overlay över resten av sidan, klick stänger menyn */
+    .menyoverlay {
+        display: block;
+        position: fixed;
+        inset: 0;
+        z-index: 0;
+        background-color: rgba(10, 46, 49, 0.55);
+        opacity: 0;
+        visibility: hidden;
+        cursor: pointer;
+        transition: opacity 0.3s ease, visibility 0.3s;
+    }
+
+    .menyknapp:checked ~ .menyoverlay {
+        opacity: 1;
+        visibility: visible;
+    }
+
+    /* Hero */
+    #herotext {
+        width: calc(100% - 2.5rem);
+        --hero-py: 30px;
+        --hero-px: 24px;
+    }
+
+    #murokakel {
+        font-size: 1.8rem;
+        letter-spacing: 0.1rem;
+    }
+
+    #slogan {
+        font-size: 1.05rem;
+    }
+
+    #slogan br {
+        display: none;
+    }
+
+    /* Behållare */
+    #s1,
+    #s2,
+    #s3,
+    #t1,
+    #t2,
+    #t3,
+    #m1,
+    #m2,
+    #kontakt {
+        padding-inline: 1.25rem;
+    }
+
+    img.ikon {
+        max-width: 44px;
+        height: 44px;
+        margin: 8px;
+    }
+
+    /* Startsidan */
+    #fördelar {
+        grid-template-columns: 1fr 1fr;
+    }
+
+    #fördelar div {
+        min-height: 140px;
+    }
+
+    #s2b {
+        gap: 2rem;
+        --sigill: 90px;
+    }
+
+    /* Tjänster */
+    #t1b {
+        flex-direction: column;
+        text-align: center;
+        padding: 24px;
+    }
+
+    .kort {
+        padding: 12px 20px;
+    }
+
+    .kontaktkort {
+        gap: 1rem;
+    }
+
+    .kontaktkort div {
+        min-height: 170px;
+    }
+
+    .kontaktkort p {
+        font-size: 1rem;
+        overflow-wrap: anywhere;
+        padding: 0 8px;
+    }
+}
+
+@media (max-width: 420px) {
+
+    header img {
+        max-width: 42px;
+    }
+
+    /* Hero */
+    #herotext {
+        --hero-py: 24px;
+        --hero-px: 16px;
+    }
+
+    #murokakel {
+        font-size: 1.5rem;
+    }
+
+    #fördelar p {
+        font-size: 0.95rem;
+    }
+
+    #s2b {
+        gap: 1.5rem;
+        --sigill: 80px;
+    }
+
+    .kontaktkort {
+        grid-template-columns: 1fr;
+    }
+
+    .kontaktkort div {
+        min-height: 140px;
+    }
+}
+
+/* Footer i mindre storlekar – följer samma bredd som innehållet */
+@media (max-width: 1600px) {
+    #footerinner,
+    #copyright {
+        max-width: 1040px;
+    }
+}
+
+@media (max-width: 1200px) {
+    #footerinner,
+    #copyright {
+        max-width: 700px;
+    }
+
+    #footerinner {
+        gap: 2rem;
+    }
+}
+
+@media (max-width: 950px) {
+    #footerinner,
+    #copyright {
+        padding-inline: 2rem;
+        box-sizing: border-box;
+    }
+
+    /* Linjen ovanför copyright ska bara gå över innehållets bredd */
+    #copyright {
+        border-top: none;
+        background-image: linear-gradient(var(--secondary-2), var(--secondary-2));
+        background-size: calc(100% - 4rem) 1px;
+        background-position: top center;
+        background-repeat: no-repeat;
+    }
+
+    #footerinner {
+        grid-template-columns: 1fr 1fr;
+    }
+
+    #footerinner .footerkol:first-child {
+        grid-column: 1 / -1;
+    }
+}
+
+@media (max-width: 600px) {
+    #footerinner,
+    #copyright {
+        padding-inline: 1.25rem;
+    }
+
+    #footerinner {
+        grid-template-columns: 1fr;
+        padding-block: 3rem 1rem;
+    }
+
+    #copyright {
+        background-size: calc(100% - 2.5rem) 1px;
+    }
+
+    footer p,
+    footer li {
+        font-size: 1.05rem;
+    }
+}
+
+/* Stäng av menyns animation medan fönstret ändrar storlek,
+   så att hamburgarmenyn inte syns glida ut (klassen sätts i toppen.js) */
+.andrar-storlek nav.navigering,
+.andrar-storlek .menyoverlay {
+    transition: none !important;
+}
