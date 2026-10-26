@@ -78,6 +78,11 @@ body {
     white-space: nowrap;
 }
 
+/* Text som ska hållas ihop på samma rad, t.ex. "AP Mur & Kakel" i rubriken */
+.hellinje {
+    white-space: nowrap;
+}
+
 /* Display-text: stor text som inte är en rubrik (används i heron) */
 .display {
     margin: 0.67em 0;
