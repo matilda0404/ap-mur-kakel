@@ -38,7 +38,7 @@ body {
 
 #hero {
     background-image: url(img/ap-omslag.webp);
-    min-width: 100vw;
+    width: 100%;
     min-height: 50vw;
     background-position: bottom;
     display: flex;
@@ -92,13 +92,6 @@ body {
 #slogan {
     color: var(--primary);
     font-size: 1.5rem;
-}
-
-.tilltoppen {
-    text-decoration: none;
-    display: flex;
-    align-items: center;
-    justify-content: center;
 }
 
 h1 {
@@ -364,7 +357,6 @@ img.ikon {
     grid-area: kredit;
 }
 
-
 #s3 {
     grid-area: s3;
     margin-top: 0;
@@ -525,14 +517,6 @@ img.ikon {
     margin-top: 1rem;
 }
 
-.ikoninfo {
-    text-align: center;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-}
-
 #materialval {
     display: grid;
     grid-template-rows: auto auto auto;
@@ -608,7 +592,6 @@ img.ikon {
     display: grid;
     margin: 0 auto;
     max-width: 1440px;
-    display: grid;
     grid-template-rows: auto;
     grid-template-areas: "kontaktcontent";
     scroll-snap-align: start;
@@ -983,7 +966,6 @@ footer a {
 
     #kredit {
         width: 308px;
-        grid-area: kredit;
     }
 
     #s3 {
@@ -991,7 +973,6 @@ footer a {
     }
 
     #s3b {
-        margin-top: 26.56px;
         max-width: 488px;
     }
 
@@ -1000,9 +981,7 @@ footer a {
     }
 
     #t1b {
-        padding: 30px;
         min-height: 265px;
-        margin-top: 56.57px;
     }
 
     #t2 {
@@ -1028,11 +1007,6 @@ footer a {
 
     #kontakt {
         max-width: 1040px;
-    }
-
-    .kontaktkort p {
-        font-weight: 500;
-        color: var(--accent);
     }
 
     .kontaktkort div {
@@ -1069,7 +1043,6 @@ footer a {
     nav a {
         height: 50px;
         border-radius: 2px;
-        font-size: 1.15rem;
     }
 
     #hero {
@@ -1077,7 +1050,6 @@ footer a {
     }
 
     #herotext {
-        margin-top: 35vh;
         --hero-py: 40px;
         --hero-px: 32px;
     }
@@ -1102,7 +1074,6 @@ footer a {
 
     #fördelar {
         grid-template-columns: 1fr 1fr 1fr 1fr;
-        gap: 1rem;
         padding-top: 0px;
     }
 
@@ -1124,12 +1095,9 @@ footer a {
     #s2 {
         max-width: 700px;
         grid-template-columns: 3fr 1fr;
-        grid-template-areas: "s2a s2b";
-        gap: 4rem;
     }
 
     #s2b {
-        grid-area: s2b;
         display: flex;
         flex-direction: column;
         align-items: center;
@@ -1171,12 +1139,10 @@ footer a {
     }
 
     #t2 {
-    max-width: 700px;
-    display: grid;
-    grid-template-columns: 1fr;
-    gap: 4rem;
-    grid-template-areas: "t2a" "t2b" "t2c" "t2d";
-}
+        max-width: 700px;
+        grid-template-columns: 1fr;
+        grid-template-areas: "t2a" "t2b" "t2c" "t2d";
+    }
 
 #t3 {
     max-width: 700px;
@@ -1224,11 +1190,8 @@ footer a {
 }
 
 .kontaktkort div {
-    background-color: var(--secondary-3);
-    border-radius: 4px;
-    min-height: 230px;
-
-}
+        min-height: 230px;
+    }
 
 }
 
@@ -1286,7 +1249,6 @@ footer a {
     }
 
     #globalnav {
-        max-width: 700px;
         padding: 0 var(--sidmarg);
         box-sizing: border-box;
     }
@@ -1312,7 +1274,6 @@ footer a {
         max-width: calc(700px - 2 * var(--sidmarg));
         margin-top: 0;
         --hero-py: 32px;
-        --hero-px: 32px;
     }
 
     #murokakel {
@@ -1435,10 +1396,6 @@ footer a {
     /* Header med hamburgarmeny */
     header {
         height: 70px;
-    }
-
-    #globalnav {
-        padding: 0 var(--sidmarg);
     }
 
     header img {
@@ -1582,14 +1539,12 @@ footer a {
 
     /* Hero */
     #herotext {
-        width: calc(100% - 2 * var(--sidmarg));
         --hero-py: 30px;
         --hero-px: 24px;
     }
 
     #murokakel {
         font-size: 1.8rem;
-        letter-spacing: 0.1rem;
     }
 
     #slogan {
@@ -1598,19 +1553,6 @@ footer a {
 
     #slogan br {
         display: none;
-    }
-
-    /* Behållare */
-    #s1,
-    #s2,
-    #s3,
-    #t1,
-    #t2,
-    #t3,
-    #m1,
-    #m2,
-    #kontakt {
-        padding-inline: var(--sidmarg);
     }
 
     img.ikon {
@@ -1738,18 +1680,10 @@ footer a {
 }
 
 @media (max-width: 600px) {
-    #footerinner,
-    #copyright {
-        padding-inline: var(--sidmarg);
-    }
 
     #footerinner {
         grid-template-columns: 1fr;
         padding-block: 3rem 1rem;
-    }
-
-    #copyright {
-        background-size: calc(100% - 2 * var(--sidmarg)) 1px;
     }
 
     footer p,
@@ -1763,4 +1697,28 @@ footer a {
 .andrar-storlek nav.navigering,
 .andrar-storlek .menyoverlay {
     transition: none !important;
+}
+
+/* Mindre hero-bild på surfplatta och mobil – laddar snabbare */
+@media (max-width: 950px) {
+    #hero {
+        background-image: url(img/ap-omslag-mobil.webp);
+    }
+}
+
+/* Respektera besökare som har valt "minska rörelse" i sina inställningar */
+@media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+        transition-duration: 0.01ms !important;
+        animation-duration: 0.01ms !important;
+        scroll-behavior: auto !important;
+    }
+
+    nav a:hover,
+    .knapp:hover,
+    #tilltoppen.synlig:hover {
+        transform: none !important;
+    }
 }
